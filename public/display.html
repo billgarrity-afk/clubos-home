@@ -729,17 +729,13 @@ function showDiscovery(q, a) {
 
 // ── QR CODE ──────────────────────────
 function renderQR() {
-  try {
-    new QRCode(document.getElementById('qrCanvas'), {
-      text: HOME.phoneURL,
-      width: 72, height: 72,
-      colorDark: '#EDE6D3',
-      colorLight: 'transparent',
-      correctLevel: QRCode.CorrectLevel.M
-    });
-  } catch(e) {
-    // QR lib not loaded yet — canvas shows placeholder
-  }
+  const url = encodeURIComponent(HOME.phoneURL);
+  const img = document.createElement('img');
+  img.src = `https://api.qrserver.com/v1/create-qr-code/?size=72x72&bgcolor=0F0D0B&color=EDE6D3&data=${url}`;
+  img.style.cssText = 'width:72px;height:72px;border-radius:6px;border:1px solid rgba(196,162,71,0.15)';
+  img.alt = 'QR Code';
+  const canvas = document.getElementById('qrCanvas');
+  canvas.parentNode.replaceChild(img, canvas);
 }
 
 // ── INIT ─────────────────────────────
