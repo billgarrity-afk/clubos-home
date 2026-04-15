@@ -2,1117 +2,759 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=1920">
 <title>Home</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:          #0F0D0B;
-  --panel:       #1A1714;
-  --card:        #221F1B;
-  --card-hover:  #2A2620;
-  --cream:       #EDE6D3;
-  --cream-dim:   rgba(237,230,211,0.5);
-  --cream-faint: rgba(237,230,211,0.18);
-  --gold:        #C4A247;
-  --gold-dim:    rgba(196,162,71,0.18);
-  --gold-border: rgba(196,162,71,0.25);
-  --sep:         rgba(196,162,71,0.1);
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-html, body {
-  background: var(--bg);
-  color: var(--cream);
-  font-family: 'DM Sans', sans-serif;
-  height: 100%;
-  overscroll-behavior: none;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  min-height: 100dvh;
-}
-
-/* ── HEADER ── */
-.header {
-  padding: 18px 20px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--bg);
-  flex-shrink: 0;
-  border-bottom: 1px solid var(--sep);
-}
-.header-greeting {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px;
-  font-weight: 300;
-  color: var(--cream);
-}
-.header-time {
-  font-size: 13px;
-  color: var(--cream-dim);
-  letter-spacing: 1px;
-}
-.tv-live {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(196,162,71,0.6);
-}
-.tv-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--gold);
-  animation: livePulse 2.5s ease-in-out infinite;
-}
-@keyframes livePulse {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 0.2; }
-}
-
-/* ── PAGES ── */
-.pages {
-  flex: 1;
+  width: 1920px;
+  height: 1080px;
   overflow: hidden;
-  position: relative;
+  background: #0F0D0B;
+  font-family: 'DM Sans', sans-serif;
+  color: #EDE6D3;
 }
-.page {
+
+/* ── PHOTO ZONE ── */
+.photo-zone {
+  position: absolute;
+  left: 0; top: 0;
+  width: 1190px;
+  height: 1080px;
+  overflow: hidden;
+}
+
+.photo-bg {
   position: absolute;
   inset: 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: 24px 20px 100px;
-  display: none;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-.page.active {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
+  transition: opacity 2.5s ease;
 }
 
-/* ── TAB BAR ── */
-.tab-bar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  background: var(--panel);
-  border-top: 1px solid var(--sep);
-  display: flex;
-  padding: 8px 0;
-  padding-bottom: max(8px, env(safe-area-inset-bottom));
-  z-index: 200;
-  flex-shrink: 0;
+.mood-portugal {
+  background:
+    radial-gradient(ellipse at 25% 65%, rgba(196,113,74,0.95) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 30%, rgba(228,164,72,0.5) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 85%, rgba(100,40,10,0.8) 0%, transparent 50%),
+    linear-gradient(160deg, #1A0C06 0%, #3D1A08 35%, #7A3A18 65%, #B86028 100%);
 }
-.tab {
-  flex: 1;
+.mood-greece {
+  background:
+    radial-gradient(ellipse at 65% 35%, rgba(74,124,196,0.9) 0%, transparent 50%),
+    radial-gradient(ellipse at 25% 70%, rgba(20,60,120,0.7) 0%, transparent 45%),
+    radial-gradient(ellipse at 80% 75%, rgba(196,162,71,0.3) 0%, transparent 35%),
+    linear-gradient(150deg, #080E1C 0%, #0E1E3C 30%, #1A3464 60%, #2A4A8C 100%);
+}
+.mood-family {
+  background:
+    radial-gradient(ellipse at 40% 55%, rgba(196,148,74,0.85) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 25%, rgba(220,180,90,0.5) 0%, transparent 40%),
+    radial-gradient(ellipse at 20% 80%, rgba(80,40,10,0.7) 0%, transparent 45%),
+    linear-gradient(155deg, #120A04 0%, #2A1608 35%, #5A3015 65%, #966030 100%);
+}
+.mood-home {
+  background:
+    radial-gradient(ellipse at 45% 60%, rgba(74,120,74,0.85) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 25%, rgba(100,160,80,0.4) 0%, transparent 40%),
+    radial-gradient(ellipse at 20% 85%, rgba(20,50,20,0.8) 0%, transparent 45%),
+    linear-gradient(150deg, #080E08 0%, #142014 35%, #244024 65%, #3A6A3A 100%);
+}
+.mood-memories {
+  background:
+    radial-gradient(ellipse at 35% 50%, rgba(160,120,138,0.85) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 30%, rgba(190,150,170,0.4) 0%, transparent 40%),
+    radial-gradient(ellipse at 55% 80%, rgba(60,30,55,0.7) 0%, transparent 45%),
+    linear-gradient(150deg, #0E080E 0%, #261626 35%, #4A2A44 65%, #7A4A68 100%);
+}
+
+/* Overlays */
+.photo-vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 120% 100% at 40% 50%, transparent 25%, rgba(10,8,6,0.55) 100%);
+}
+.photo-right-fade {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 45%, rgba(10,8,6,0.6) 75%, #0F0D0B 100%);
+}
+.photo-bottom-fade {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(10,8,6,0.85) 100%);
+}
+.photo-grain {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none; opacity: 0.5;
+}
+
+/* Mood label — top left */
+.mood-label {
+  position: absolute;
+  top: 52px; left: 60px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mood-pulse {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(196,162,71,0.7);
+  animation: moodPulse 3s ease-in-out infinite;
+}
+@keyframes moodPulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.6); }
+}
+.mood-name {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(237,230,211,0.4);
+  font-weight: 400;
+}
+
+/* Time — bottom left of photo */
+.time-overlay {
+  position: absolute;
+  bottom: 100px;
+  left: 60px;
+}
+.time-display {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 128px;
+  font-weight: 300;
+  color: #EDE6D3;
+  line-height: 1;
+  letter-spacing: -4px;
+  text-shadow: 0 8px 60px rgba(0,0,0,0.7);
+}
+.date-display {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(237,230,211,0.55);
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+}
+
+/* ── INFO PANEL ── */
+.info-panel {
+  position: absolute;
+  right: 0; top: 0;
+  width: 730px;
+  height: 1080px;
+  padding: 52px 60px 48px 52px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  padding: 6px 4px;
-  cursor: pointer;
-  opacity: 0.35;
-  transition: opacity 0.2s;
 }
-.tab.active { opacity: 1; }
-.tab-icon { font-size: 18px; line-height: 1; }
-.tab-label {
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--cream-dim);
-}
-.tab.active .tab-label { color: var(--gold); }
 
-/* ── SHARED COMPONENTS ── */
-.page-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 30px;
-  font-weight: 300;
-  color: var(--cream);
-  margin-bottom: 4px;
+/* Greeting */
+.greeting {
+  margin-bottom: 36px;
+  flex-shrink: 0;
 }
-.page-sub {
-  font-size: 11px;
-  color: var(--cream-dim);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 24px;
-}
-.section-label {
-  font-size: 9px;
+.greeting-eyebrow {
+  font-size: 10px;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: rgba(196,162,71,0.5);
-  margin-bottom: 12px;
-  margin-top: 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  margin-bottom: 8px;
+  font-weight: 500;
 }
-.section-label::after {
-  content: '';
-  flex: 1;
+.greeting-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 44px;
+  font-weight: 300;
+  color: #EDE6D3;
+  line-height: 1.15;
+}
+.greeting-highlight { color: #C4A247; }
+
+/* Separator */
+.sep {
   height: 1px;
-  background: var(--sep);
-}
-.card {
-  background: var(--card);
-  border: 1px solid var(--sep);
-  border-radius: 12px;
-  padding: 16px 18px;
-  margin-bottom: 10px;
+  background: linear-gradient(90deg, rgba(196,162,71,0.25), transparent);
+  margin: 0 0 28px;
+  flex-shrink: 0;
 }
 
-/* ── DISCOVER PAGE ── */
-.discover-notice {
+/* Weather */
+.weather-block {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--gold-dim);
-  border: 1px solid var(--gold-border);
-  border-radius: 8px;
-  padding: 10px 14px;
-  margin-bottom: 20px;
-  font-size: 12px;
-  color: rgba(196,162,71,0.85);
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 32px;
+  flex-shrink: 0;
+}
+.weather-main {}
+.weather-temp-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.weather-icon { font-size: 32px; line-height: 1; }
+.weather-temp {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 68px;
+  font-weight: 300;
+  color: #EDE6D3;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.weather-meta {
+  margin-top: 6px;
+}
+.weather-condition {
+  font-size: 14px;
+  color: rgba(237,230,211,0.55);
   letter-spacing: 0.5px;
 }
-
-.messages-area {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 16px;
-  min-height: 200px;
-}
-.msg {
-  padding: 12px 16px;
-  border-radius: 14px;
-  font-size: 15px;
-  line-height: 1.55;
-  max-width: 92%;
-  animation: msgIn 0.3s ease;
-}
-@keyframes msgIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.msg.user {
-  background: var(--gold-dim);
-  border: 1px solid var(--gold-border);
-  color: var(--cream);
-  margin-left: auto;
-  border-bottom-right-radius: 4px;
-}
-.msg.assistant {
-  background: var(--card);
-  border: 1px solid var(--sep);
-  color: rgba(237,230,211,0.9);
-  margin-right: auto;
-  border-bottom-left-radius: 4px;
-}
-.msg.loading {
-  color: var(--cream-dim);
-  font-style: italic;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 16px;
-}
-
-.input-area {
-  display: flex;
-  gap: 10px;
-  align-items: flex-end;
-  margin-top: 8px;
-}
-.chat-input {
-  flex: 1;
-  background: var(--card);
-  border: 1px solid var(--sep);
-  border-radius: 14px;
-  padding: 12px 16px;
-  color: var(--cream);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  outline: none;
-  resize: none;
-  min-height: 48px;
-  max-height: 110px;
-  line-height: 1.4;
-  transition: border-color 0.2s;
-}
-.chat-input::placeholder { color: var(--cream-faint); }
-.chat-input:focus { border-color: var(--gold-border); }
-
-.send-btn {
-  width: 48px; height: 48px;
-  border-radius: 14px;
-  background: var(--gold);
-  border: none;
-  color: #0F0D0B;
-  font-size: 20px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: opacity 0.2s, transform 0.15s;
-  line-height: 1;
-}
-.send-btn:active { transform: scale(0.93); }
-.send-btn:disabled { opacity: 0.35; cursor: not-allowed; }
-
-/* Suggested prompts */
-.prompts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-.prompt-chip {
-  background: var(--card);
-  border: 1px solid var(--sep);
-  border-radius: 20px;
-  padding: 7px 14px;
-  font-size: 13px;
-  color: var(--cream-dim);
-  cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
-  white-space: nowrap;
-}
-.prompt-chip:active {
-  border-color: var(--gold-border);
-  color: var(--cream);
-}
-
-/* ── TASKS PAGE ── */
-.task-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(237,230,211,0.04);
-}
-.task-item:last-child { border-bottom: none; }
-
-.task-check {
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(237,230,211,0.2);
-  flex-shrink: 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-.task-check.done {
-  background: var(--gold-dim);
-  border-color: var(--gold);
-}
-.task-check.done::after {
-  content: '✓';
-  font-size: 11px;
-  color: var(--gold);
-  font-weight: 600;
-}
-.task-text {
-  flex: 1;
-  font-size: 14px;
-  color: var(--cream);
-  line-height: 1.4;
-}
-.task-text.done {
-  text-decoration: line-through;
-  color: var(--cream-dim);
-}
-.task-cost {
-  font-size: 11px;
-  color: var(--cream-dim);
-  flex-shrink: 0;
+.weather-note {
+  font-size: 12px;
+  color: rgba(196,162,71,0.6);
+  margin-top: 3px;
   letter-spacing: 0.3px;
 }
 
-/* ── MOOD PAGE ── */
-.mood-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+/* Section label */
+.section-eyebrow {
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(196,162,71,0.45);
+  margin-bottom: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Calendar */
+.calendar-section {
+  margin-bottom: 28px;
+  flex-shrink: 0;
+}
+
+.cal-event {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(237,230,211,0.05);
+  position: relative;
+}
+.cal-event:last-child { border-bottom: none; }
+
+.cal-time {
+  font-size: 12px;
+  color: rgba(237,230,211,0.38);
+  min-width: 120px;
+  font-weight: 300;
+  flex-shrink: 0;
+  letter-spacing: 0.3px;
+}
+.cal-title {
+  font-size: 15px;
+  color: rgba(237,230,211,0.85);
+  font-weight: 400;
+  flex: 1;
+}
+.cal-event.is-today .cal-time {
+  color: rgba(196,162,71,0.8);
+}
+.cal-event.is-today .cal-title {
+  color: #EDE6D3;
+  font-weight: 500;
+}
+.cal-event.is-today::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: #C4A247;
+}
+
+/* Tasks */
+.tasks-section {
+  margin-bottom: 28px;
+  flex-shrink: 0;
+}
+.task-buckets {
+  display: flex;
   gap: 12px;
 }
-.mood-card {
-  border-radius: 14px;
-  overflow: hidden;
-  aspect-ratio: 3/2;
-  position: relative;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: border-color 0.25s, transform 0.15s;
+.task-bucket {
+  flex: 1;
+  background: rgba(196,162,71,0.05);
+  border: 1px solid rgba(196,162,71,0.12);
+  border-radius: 10px;
+  padding: 16px 14px;
+  text-align: center;
+  transition: border-color 0.3s;
 }
-.mood-card.selected { border-color: var(--gold); }
-.mood-card:active { transform: scale(0.97); }
-
-.mood-bg {
-  position: absolute;
-  inset: 0;
-}
-.mood-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.65) 100%);
-  display: flex;
-  align-items: flex-end;
-  padding: 12px 14px;
-}
-.mood-card-name {
+.bucket-count {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 17px;
-  color: #EDE6D3;
-  font-weight: 400;
-  line-height: 1.2;
-}
-.mood-on-tv {
-  position: absolute;
-  top: 9px; right: 9px;
-  background: var(--gold);
-  color: #0F0D0B;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding: 3px 8px;
-  border-radius: 4px;
-  display: none;
-}
-.mood-card.selected .mood-on-tv { display: block; }
-
-/* Mood gradient backgrounds */
-.mbg-portugal  { background: radial-gradient(ellipse at 30% 60%, #C4714A, #3D1A08); }
-.mbg-greece    { background: radial-gradient(ellipse at 60% 40%, #4A7CC4, #0A1A3A); }
-.mbg-family    { background: radial-gradient(ellipse at 40% 50%, #C4944A, #3A2810); }
-.mbg-home      { background: radial-gradient(ellipse at 50% 70%, #4A7A4A, #0E180E); }
-.mbg-memories  { background: radial-gradient(ellipse at 35% 45%, #A07A8A, #160E16); }
-
-/* ── SHOPPING PAGE ── */
-.store-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 2px;
-}
-.store-icon { font-size: 18px; }
-.store-name {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--cream);
-}
-
-.shop-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 11px 0;
-  border-bottom: 1px solid rgba(237,230,211,0.04);
-}
-.shop-item:last-child { border-bottom: none; }
-
-.shop-check {
-  width: 20px; height: 20px;
-  border-radius: 5px;
-  border: 1.5px solid rgba(237,230,211,0.2);
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.shop-check.checked {
-  background: var(--gold-dim);
-  border-color: var(--gold);
-}
-.shop-check.checked::after {
-  content: '✓';
-  font-size: 10px;
-  color: var(--gold);
-  font-weight: 600;
-}
-.shop-text {
-  flex: 1;
-  font-size: 14px;
-  color: var(--cream);
-}
-.shop-text.checked {
-  text-decoration: line-through;
-  color: var(--cream-dim);
-}
-
-.add-row {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-}
-.add-input {
-  flex: 1;
-  background: rgba(237,230,211,0.04);
-  border: 1px solid var(--sep);
-  border-radius: 8px;
-  padding: 9px 13px;
-  color: var(--cream);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.add-input::placeholder { color: var(--cream-faint); }
-.add-input:focus { border-color: var(--gold-border); }
-.add-btn {
-  width: 38px; height: 38px;
-  border-radius: 8px;
-  background: var(--gold-dim);
-  border: 1px solid var(--gold-border);
-  color: var(--gold);
-  font-size: 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
+  font-size: 46px;
+  font-weight: 300;
+  color: #C4A247;
   line-height: 1;
 }
-.add-btn:active { background: rgba(196,162,71,0.3); }
+.bucket-label {
+  font-size: 10px;
+  color: rgba(237,230,211,0.38);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 6px;
+  font-weight: 500;
+}
 
-/* ── VOICE ── */
-.mic-btn {
-  width: 48px; height: 48px;
-  border-radius: 14px;
-  background: var(--card);
-  border: 1px solid var(--sep);
-  color: var(--cream-dim);
-  font-size: 20px;
-  cursor: pointer;
+/* QR Block */
+.qr-block {
+  margin-top: auto;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(196,162,71,0.1);
   flex-shrink: 0;
-  transition: all 0.2s;
-  position: relative;
 }
-.mic-btn:active { transform: scale(0.93); }
-.mic-btn.listening {
-  background: rgba(196,162,71,0.12);
-  border-color: var(--gold);
-  color: var(--gold);
+#qrCanvas {
+  border-radius: 6px;
+  flex-shrink: 0;
+  background: rgba(237,230,211,0.08);
+  border: 1px solid rgba(196,162,71,0.15);
 }
-.mic-btn.listening::before {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border-radius: 20px;
-  border: 2px solid var(--gold);
-  opacity: 0.4;
-  animation: micRing 1.2s ease-in-out infinite;
+.qr-text {}
+.qr-cta {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: rgba(196,162,71,0.85);
+  font-weight: 400;
+  margin-bottom: 4px;
 }
-.mic-btn.listening::after {
-  content: '';
-  position: absolute;
-  inset: -12px;
-  border-radius: 24px;
-  border: 1px solid var(--gold);
-  opacity: 0.15;
-  animation: micRing 1.2s ease-in-out 0.3s infinite;
-}
-@keyframes micRing {
-  0%   { transform: scale(1);    opacity: 0.4; }
-  100% { transform: scale(1.15); opacity: 0;   }
+.qr-sub {
+  font-size: 12px;
+  color: rgba(237,230,211,0.35);
+  line-height: 1.5;
+  letter-spacing: 0.3px;
 }
 
-.listening-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(10,8,6,0.92);
-  z-index: 500;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 28px;
-}
-.listening-overlay.active { display: flex; }
-
-.listen-orb {
-  width: 96px; height: 96px;
-  border-radius: 50%;
-  background: var(--gold-dim);
-  border: 2px solid var(--gold);
+/* ── DISCOVERY BAR ── */
+.discovery-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 0;
+  background: rgba(10,8,6,0.97);
+  border-top: 1px solid rgba(196,162,71,0.12);
+  overflow: hidden;
+  transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  position: relative;
+  padding: 0 60px;
+  gap: 40px;
 }
-.listen-orb::before {
-  content: '';
-  position: absolute;
-  inset: -12px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(196,162,71,0.3);
-  animation: orbRing 1.4s ease-in-out infinite;
-}
-.listen-orb::after {
-  content: '';
-  position: absolute;
-  inset: -24px;
-  border-radius: 50%;
-  border: 1px solid rgba(196,162,71,0.15);
-  animation: orbRing 1.4s ease-in-out 0.35s infinite;
-}
-@keyframes orbRing {
-  0%   { transform: scale(1);    opacity: 1; }
-  100% { transform: scale(1.25); opacity: 0; }
+.discovery-bar.visible {
+  height: 108px;
 }
 
-.listen-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 26px;
-  font-weight: 300;
-  color: var(--cream);
+/* Speaking indicator */
+.speaking-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
-.listen-sub {
-  font-size: 12px;
-  color: var(--cream-dim);
-  letter-spacing: 2px;
+.speaking-indicator.active { opacity: 1; }
+.speak-bar {
+  width: 3px;
+  border-radius: 2px;
+  background: var(--gold);
+  animation: speakBounce 0.8s ease-in-out infinite;
+}
+.speak-bar:nth-child(1) { height: 8px;  animation-delay: 0s;    }
+.speak-bar:nth-child(2) { height: 16px; animation-delay: 0.1s;  }
+.speak-bar:nth-child(3) { height: 22px; animation-delay: 0.2s;  }
+.speak-bar:nth-child(4) { height: 14px; animation-delay: 0.3s;  }
+.speak-bar:nth-child(5) { height: 8px;  animation-delay: 0.15s; }
+@keyframes speakBounce {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.4; }
+  50%       { transform: scaleY(1);   opacity: 1;   }
+}
+
+.discovery-left {
+  flex-shrink: 0;
+  min-width: 260px;
+}
+.discovery-label {
+  font-size: 9px;
+  letter-spacing: 3px;
   text-transform: uppercase;
+  color: rgba(196,162,71,0.4);
+  margin-bottom: 6px;
 }
-.listen-transcript {
-  font-size: 16px;
-  color: var(--gold);
+.discovery-q {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: rgba(196,162,71,0.75);
   font-style: italic;
-  font-family: 'Cormorant Garamond', serif;
-  text-align: center;
-  max-width: 80%;
-  min-height: 28px;
-  line-height: 1.4;
+  line-height: 1.3;
 }
-.listen-cancel {
-  font-size: 13px;
-  color: var(--cream-dim);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  padding: 10px 20px;
-  border: 1px solid var(--sep);
-  border-radius: 8px;
-  margin-top: 8px;
+
+.discovery-divider {
+  width: 1px;
+  height: 60px;
+  background: rgba(196,162,71,0.15);
+  flex-shrink: 0;
 }
+
+.discovery-answer {
+  flex: 1;
+  font-size: 17px;
+  color: rgba(237,230,211,0.85);
+  line-height: 1.55;
+}
+
+/* ── ENTRANCE ANIMATIONS ── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.photo-zone { animation: fadeIn 2s ease both; }
+.greeting { animation: slideInRight 0.8s ease 0.15s both; }
+.sep { animation: slideInRight 0.8s ease 0.25s both; }
+.weather-block { animation: slideInRight 0.8s ease 0.3s both; }
+.calendar-section { animation: slideInRight 0.8s ease 0.4s both; }
+.tasks-section { animation: slideInRight 0.8s ease 0.5s both; }
+.qr-block { animation: slideInRight 0.8s ease 0.6s both; }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <div>
-    <div class="header-greeting" id="headerGreeting">Good evening</div>
+<!-- PHOTO ZONE -->
+<div class="photo-zone">
+  <div class="photo-bg mood-portugal" id="photoBg"></div>
+  <div class="photo-vignette"></div>
+  <div class="photo-right-fade"></div>
+  <div class="photo-bottom-fade"></div>
+  <div class="photo-grain"></div>
+
+  <div class="mood-label">
+    <div class="mood-pulse"></div>
+    <div class="mood-name" id="moodName">Portugal 2023</div>
   </div>
-  <div class="tv-live">
-    <div class="tv-dot"></div>
-    TV live
+
+  <div class="time-overlay">
+    <div class="time-display" id="timeDisplay">7:48 PM</div>
+    <div class="date-display" id="dateDisplay">Tuesday, April 14</div>
   </div>
 </div>
 
-<!-- PAGES CONTAINER -->
-<div class="pages">
+<!-- INFO PANEL -->
+<div class="info-panel">
 
-  <!-- ── DISCOVER ── -->
-  <div class="page active" id="page-discover">
-    <div class="page-title">Discover</div>
-    <div class="page-sub">Ask anything together</div>
+  <div class="greeting">
+    <div class="greeting-eyebrow" id="greetingEyebrow">Good evening</div>
+    <div class="greeting-line">The <span class="greeting-highlight" id="familyName">Garrity</span> Family</div>
+  </div>
 
-    <div class="discover-notice">
-      <span>📺</span>
-      Your answer will appear on the TV
+  <div class="sep"></div>
+
+  <div class="weather-block">
+    <div class="weather-main">
+      <div class="weather-temp-row">
+        <span class="weather-icon" id="wIcon">⛅</span>
+        <span class="weather-temp" id="wTemp">68°F</span>
+      </div>
+      <div class="weather-meta">
+        <div class="weather-condition" id="wCondition">Partly Cloudy · Durham, NC</div>
+        <div class="weather-note" id="wNote">Rain expected Thursday</div>
+      </div>
     </div>
+  </div>
 
-    <div class="prompts" id="suggestedPrompts"></div>
+  <div class="calendar-section">
+    <div class="section-eyebrow">Upcoming</div>
+    <div id="calEvents"></div>
+  </div>
 
-    <div class="messages-area" id="messages"></div>
+  <div class="sep" style="margin-bottom:24px;"></div>
 
-    <div class="input-area">
-      <textarea class="chat-input" id="chatInput" placeholder="Ask anything, or tap 🎙 to speak…" rows="1"></textarea>
-      <button class="mic-btn" id="micBtn" onclick="toggleListening()" title="Speak">🎙</button>
-      <button class="send-btn" id="sendBtn" onclick="sendMessage()">↑</button>
+  <div class="tasks-section">
+    <div class="section-eyebrow">Open Tasks</div>
+    <div class="task-buckets">
+      <div class="task-bucket">
+        <div class="bucket-count" id="buyCount">4</div>
+        <div class="bucket-label">Buy It</div>
+      </div>
+      <div class="task-bucket">
+        <div class="bucket-count" id="doCount">8</div>
+        <div class="bucket-label">Do It</div>
+      </div>
+      <div class="task-bucket">
+        <div class="bucket-count" id="hireCount">3</div>
+        <div class="bucket-label">Hire It</div>
+      </div>
     </div>
   </div>
 
-  <!-- LISTENING OVERLAY -->
-  <div class="listening-overlay" id="listenOverlay">
-    <div class="listen-orb">🎙</div>
-    <div class="listen-label">Listening…</div>
-    <div class="listen-transcript" id="listenTranscript">Speak your question</div>
-    <div class="listen-sub">Answer will appear on the TV</div>
-    <div class="listen-cancel" onclick="cancelListening()">Cancel</div>
-  </div>
-
-  <!-- ── TASKS ── -->
-  <div class="page" id="page-tasks">
-    <div class="page-title">Tasks</div>
-    <div class="page-sub">Three buckets</div>
-
-    <div class="section-label">🛒 Buy It</div>
-    <div class="card" id="bucket-buy"></div>
-
-    <div class="section-label">🔨 Do It</div>
-    <div class="card" id="bucket-do"></div>
-
-    <div class="section-label">📞 Hire It</div>
-    <div class="card" id="bucket-hire"></div>
-  </div>
-
-  <!-- ── MOOD ── -->
-  <div class="page" id="page-mood">
-    <div class="page-title">Set the Mood</div>
-    <div class="page-sub">Changes the TV background</div>
-    <div class="mood-grid" id="moodGrid"></div>
-  </div>
-
-  <!-- ── SHOPPING ── -->
-  <div class="page" id="page-shop">
-    <div class="page-title">Shopping</div>
-    <div class="page-sub">Lists by store</div>
-    <div id="shopContent"></div>
+  <div class="qr-block">
+    <canvas id="qrCanvas" width="72" height="72"></canvas>
+    <div class="qr-text">
+      <div class="qr-cta">Scan to interact</div>
+      <div class="qr-sub">Ask anything · Change mood<br>Manage tasks · Shopping lists</div>
+    </div>
   </div>
 
 </div>
 
-<!-- TAB BAR -->
-<div class="tab-bar">
-  <div class="tab active" onclick="showTab('discover',this)">
-    <div class="tab-icon">✦</div>
-    <div class="tab-label">Discover</div>
+<!-- DISCOVERY BAR -->
+<div class="discovery-bar" id="discoveryBar">
+  <div class="discovery-left">
+    <div class="discovery-label">You asked</div>
+    <div class="discovery-q" id="discoveryQ"></div>
   </div>
-  <div class="tab" onclick="showTab('tasks',this)">
-    <div class="tab-icon">☑</div>
-    <div class="tab-label">Tasks</div>
-  </div>
-  <div class="tab" onclick="showTab('mood',this)">
-    <div class="tab-icon">◐</div>
-    <div class="tab-label">Mood</div>
-  </div>
-  <div class="tab" onclick="showTab('shop',this)">
-    <div class="tab-icon">🛒</div>
-    <div class="tab-label">Shop</div>
+  <div class="discovery-divider"></div>
+  <div class="discovery-answer" id="discoveryA"></div>
+  <div class="speaking-indicator" id="speakingIndicator">
+    <div class="speak-bar"></div>
+    <div class="speak-bar"></div>
+    <div class="speak-bar"></div>
+    <div class="speak-bar"></div>
+    <div class="speak-bar"></div>
   </div>
 </div>
 
+<!-- QR Code generator -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-// ═══════════════════════════════════════
-// CONFIG
-// ═══════════════════════════════════════
-const API = '/api/chat'; // Vercel serverless proxy — same domain
-
-const SYSTEM_PROMPT = `You are the Garrity family's home assistant. You help the family discover things together on their home TV display.
-
-The family: Bill (building ClubOS, a software platform for private clubs — loves sports, golf, entrepreneurship), Jodi (corporate partnerships manager, very organized and practical, appreciates concise answers), Payton (graduating high school 2026, loves gaming and technology). They live in Durham, NC.
-
-You are warm, conversational, and genuinely curious. Keep answers SHORT — 2 to 4 sentences max for most questions. You're writing for a TV that a family reads together, so be clear, direct, and occasionally delightful. No bullet lists unless truly necessary. Think of yourself as a brilliant friend at the dinner table, not a textbook.`;
-
-const PROMPTS = [
-  "What's the weather this week?",
-  "Recommend a documentary for tonight",
-  "Fun fact about Portugal",
-  "Best restaurants near Durham?",
-  "What happened in sports today?",
-  "Give us a dinner idea"
-];
-
-const TASKS_DEFAULT = {
-  buy: [
-    { text: 'New carpet — get bids first',    cost: '$5–10k', done: false },
-    { text: 'Touch-up paint supplies',         cost: '~$40',  done: false },
-    { text: 'Under-stairs organizer bins',     cost: '',       done: false },
-    { text: 'Exterior pressure washer rental', cost: '',       done: false }
+// ═══════════════════════════════════
+// CONFIG — edit this block
+// ═══════════════════════════════════
+const HOME = {
+  familyName: 'Garrity',
+  phoneURL: 'https://clubos-home.vercel.app/phone.html', // update after deploy
+  weather: {
+    icon: '⛅',
+    temp: '68°F',
+    condition: 'Partly Cloudy · Durham, NC',
+    note: 'Rain expected Thursday'
+  },
+  calendar: [
+    { time: 'Today  4:00 PM', title: 'Pick up Payton',            today: true  },
+    { time: 'Today  7:00 PM', title: 'Dinner — Tasu?',            today: true  },
+    { time: 'Wed  Apr 16',    title: 'Jodi — GP call',            today: false },
+    { time: 'Fri   Apr 18',   title: 'Payton graduation meeting', today: false },
+    { time: 'Sat   Apr 19',   title: 'Ballantyne 4th of July preview', today: false }
   ],
-  doIt: [
-    { text: 'Organize under stairs',           cost: '', done: false },
-    { text: 'Deep clean pantry',               cost: '', done: false },
-    { text: 'Fix holes in walls',              cost: '', done: false },
-    { text: 'Touch up baseboards',             cost: '', done: false },
-    { text: 'Declutter guest room',            cost: '', done: false },
-    { text: 'Organize garage shelving',        cost: '', done: false },
-    { text: 'Clean out and organize fridge',   cost: '', done: false },
-    { text: 'Select and frame photos for wall',cost: '', done: false }
-  ],
-  hireOut: [
-    { text: 'Exterior pressure washing',       cost: 'Get bid', done: false },
-    { text: 'Carpet installation',             cost: 'Get bid', done: false },
-    { text: 'Baseboard painting',              cost: 'Get bid', done: false }
+  moods: [
+    { key: 'portugal',  label: 'Portugal 2023',   cls: 'mood-portugal'  },
+    { key: 'greece',    label: 'Greece 2022',      cls: 'mood-greece'    },
+    { key: 'family',    label: 'Family Memories',  cls: 'mood-family'    },
+    { key: 'home',      label: 'Home',             cls: 'mood-home'      },
+    { key: 'memories',  label: "Mom's Photos",     cls: 'mood-memories'  }
   ]
 };
 
-const MOODS = [
-  { key: 'portugal',  label: 'Portugal 2023',   bg: 'mbg-portugal'  },
-  { key: 'greece',    label: 'Greece 2022',      bg: 'mbg-greece'    },
-  { key: 'family',    label: 'Family Memories',  bg: 'mbg-family'    },
-  { key: 'home',      label: 'Home',             bg: 'mbg-home'      },
-  { key: 'memories',  label: "Mom's Photos",     bg: 'mbg-memories'  }
-];
-
-const STORES_DEFAULT = {
-  'Walmart':       ['Paper towels', 'Trash bags', 'Dish soap', 'Laundry detergent'],
-  'Harris Teeter': ['Almond milk', 'Greek yogurt', 'Chicken breast', 'Baby spinach', 'Eggs'],
-  'Publix':        ['Sourdough bread', 'Parmesan', 'Cherry tomatoes'],
-  "BJ's":          ['Sparkling water (case)', 'Olive oil', 'Protein bars']
-};
-
-const STORE_ICONS = {
-  'Walmart': '🛍', 'Harris Teeter': '🌿', 'Publix': '🧺', "BJ's": '📦'
-};
-
-// ═══════════════════════════════════════
-// TABS
-// ═══════════════════════════════════════
-function showTab(name, el) {
-  document.querySelectorAll('.page').forEach(p => {
-    p.classList.remove('active');
-    p.style.display = 'none';
-  });
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-
-  const page = document.getElementById('page-' + name);
-  page.style.display = 'block';
-  requestAnimationFrame(() => page.classList.add('active'));
-  el.classList.add('active');
+// ── CLOCK ───────────────────────────
+function updateClock() {
+  const now = new Date();
+  const h = now.getHours();
+  const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  const date = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  document.getElementById('timeDisplay').textContent = time;
+  document.getElementById('dateDisplay').textContent = date;
+  const period = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('greetingEyebrow').textContent = period;
 }
 
-// ═══════════════════════════════════════
-// CLOCK
-// ═══════════════════════════════════════
-function updateGreeting() {
-  const h = new Date().getHours();
-  const g = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
-  document.getElementById('headerGreeting').textContent = g;
+// ── WEATHER ─────────────────────────
+function renderWeather() {
+  document.getElementById('wIcon').textContent = HOME.weather.icon;
+  document.getElementById('wTemp').textContent  = HOME.weather.temp;
+  document.getElementById('wCondition').textContent = HOME.weather.condition;
+  document.getElementById('wNote').textContent  = HOME.weather.note;
 }
 
-// ═══════════════════════════════════════
-// DISCOVER
-// ═══════════════════════════════════════
-let history = [];
-let busy    = false;
-
-function renderPrompts() {
-  document.getElementById('suggestedPrompts').innerHTML = PROMPTS.map(p => `
-    <div class="prompt-chip" onclick="usePrompt(this)">${p}</div>
+// ── CALENDAR ────────────────────────
+function renderCalendar() {
+  document.getElementById('familyName').textContent = HOME.familyName;
+  document.getElementById('calEvents').innerHTML = HOME.calendar.map(e => `
+    <div class="cal-event ${e.today ? 'is-today' : ''}">
+      <div class="cal-time">${e.time}</div>
+      <div class="cal-title">${e.title}</div>
+    </div>
   `).join('');
 }
 
-function usePrompt(el) {
-  document.getElementById('chatInput').value = el.textContent;
-  sendMessage();
-}
-
-async function sendMessage() {
-  const input = document.getElementById('chatInput');
-  const q = input.value.trim();
-  if (!q || busy) return;
-
-  input.value = '';
-  input.style.height = 'auto';
-  busy = true;
-  document.getElementById('sendBtn').disabled = true;
-
-  // Hide prompts after first use
-  document.getElementById('suggestedPrompts').style.display = 'none';
-
-  addMsg(q, 'user');
-  history.push({ role: 'user', content: q });
-
-  const loadEl = addMsg('Thinking…', 'assistant loading');
-
-  try {
-    const res = await fetch(API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        system: SYSTEM_PROMPT,
-        messages: history,
-        max_tokens: 350
-      })
-    });
-
-    if (!res.ok) throw new Error(res.status);
-
-    const data = await res.json();
-    const answer = data.content?.[0]?.text
-                || data.choices?.[0]?.message?.content
-                || 'Hmm, I had trouble with that. Try again?';
-
-    loadEl.remove();
-    addMsg(answer, 'assistant');
-    history.push({ role: 'assistant', content: answer });
-
-    // Push to TV via localStorage
-    localStorage.setItem('home_discovery_q',  q);
-    localStorage.setItem('home_discovery_a',  answer);
-    localStorage.setItem('home_discovery_ts', Date.now().toString());
-
-  } catch (err) {
-    loadEl.remove();
-    addMsg('Connection hiccup — give it another try.', 'assistant');
-    console.error(err);
-  }
-
-  busy = false;
-  document.getElementById('sendBtn').disabled = false;
-}
-
-function addMsg(text, type) {
-  const el = document.createElement('div');
-  el.className = 'msg ' + type;
-  el.textContent = text;
-  const area = document.getElementById('messages');
-  area.appendChild(el);
-  el.scrollIntoView({ behavior: 'smooth', block: 'end' });
-  return el;
-}
-
-// Auto-resize textarea
-document.addEventListener('DOMContentLoaded', () => {
-  const ta = document.getElementById('chatInput');
-  ta.addEventListener('input', () => {
-    ta.style.height = 'auto';
-    ta.style.height = Math.min(ta.scrollHeight, 110) + 'px';
-  });
-  ta.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  });
-});
-
-// ═══════════════════════════════════════
-// TASKS
-// ═══════════════════════════════════════
-function getTasks() {
-  return JSON.parse(localStorage.getItem('home_tasks_full') || 'null') || TASKS_DEFAULT;
-}
-
-function saveTasks(tasks) {
-  localStorage.setItem('home_tasks_full', JSON.stringify(tasks));
-  // Update TV counts
-  localStorage.setItem('home_task_counts', JSON.stringify({
-    buy:     tasks.buy.filter(t => !t.done).length,
-    doIt:    tasks.doIt.filter(t => !t.done).length,
-    hireOut: tasks.hireOut.filter(t => !t.done).length
-  }));
-}
-
+// ── TASKS ────────────────────────────
 function renderTasks() {
-  const tasks = getTasks();
-  [
-    ['buy',    'bucket-buy'],
-    ['doIt',   'bucket-do'],
-    ['hireOut','bucket-hire']
-  ].forEach(([bucket, elId]) => {
-    const el = document.getElementById(elId);
-    el.innerHTML = tasks[bucket].map((t, i) => `
-      <div class="task-item">
-        <div class="task-check ${t.done ? 'done' : ''}"
-             onclick="toggleTask('${bucket}',${i})"></div>
-        <div class="task-text ${t.done ? 'done' : ''}">${t.text}</div>
-        ${t.cost ? `<div class="task-cost">${t.cost}</div>` : ''}
-      </div>
-    `).join('');
-  });
+  const saved = JSON.parse(localStorage.getItem('home_task_counts') || 'null');
+  if (saved) {
+    document.getElementById('buyCount').textContent  = saved.buy;
+    document.getElementById('doCount').textContent   = saved.doIt;
+    document.getElementById('hireCount').textContent = saved.hireOut;
+  }
 }
 
-function toggleTask(bucket, idx) {
-  const tasks = getTasks();
-  tasks[bucket][idx].done = !tasks[bucket][idx].done;
-  saveTasks(tasks);
-  renderTasks();
+// ── MOOD ─────────────────────────────
+function updateMood() {
+  const key    = localStorage.getItem('home_mood') || 'portugal';
+  const mood   = HOME.moods.find(m => m.key === key) || HOME.moods[0];
+  const bg     = document.getElementById('photoBg');
+  // Only update class if it changed
+  if (!bg.classList.contains(mood.cls)) {
+    bg.style.opacity = '0';
+    setTimeout(() => {
+      bg.className = 'photo-bg ' + mood.cls;
+      bg.style.opacity = '1';
+    }, 400);
+  }
+  document.getElementById('moodName').textContent = mood.label;
 }
 
-// ═══════════════════════════════════════
-// MOOD
-// ═══════════════════════════════════════
-function renderMoods() {
-  const current = localStorage.getItem('home_mood') || 'portugal';
-  document.getElementById('moodGrid').innerHTML = MOODS.map(m => `
-    <div class="mood-card ${m.key === current ? 'selected' : ''}"
-         onclick="setMood('${m.key}')">
-      <div class="mood-bg ${m.bg}"></div>
-      <div class="mood-overlay">
-        <div class="mood-card-name">${m.label}</div>
-      </div>
-      <div class="mood-on-tv">On TV</div>
-    </div>
-  `).join('');
-}
-
-function setMood(key) {
-  localStorage.setItem('home_mood', key);
-  renderMoods();
-}
-
-// ═══════════════════════════════════════
-// SHOPPING
-// ═══════════════════════════════════════
-function getStores() {
-  return JSON.parse(localStorage.getItem('home_stores') || 'null') || STORES_DEFAULT;
-}
-
-function renderShopping() {
-  const stores = getStores();
-  document.getElementById('shopContent').innerHTML = Object.keys(stores).map(store => `
-    <div class="section-label">
-      <span>${STORE_ICONS[store] || '🛒'}</span>
-      ${store}
-    </div>
-    <div class="card">
-      ${stores[store].map((item, i) => {
-        const cKey    = `shop_${store}_${i}`;
-        const checked = localStorage.getItem(cKey) === '1';
-        return `<div class="shop-item" id="si-${store}-${i}">
-          <div class="shop-check ${checked ? 'checked' : ''}"
-               onclick="toggleShop('${store}',${i})"></div>
-          <div class="shop-text ${checked ? 'checked' : ''}"
-               id="st-${store}-${i}">${item}</div>
-        </div>`;
-      }).join('')}
-      <div class="add-row">
-        <input class="add-input" id="add-${store}" placeholder="Add item…"
-               onkeydown="if(event.key==='Enter')addShopItem('${store}')">
-        <button class="add-btn" onclick="addShopItem('${store}')">+</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function toggleShop(store, idx) {
-  const key = `shop_${store}_${idx}`;
-  const now = localStorage.getItem(key) !== '1';
-  localStorage.setItem(key, now ? '1' : '0');
-  renderShopping();
-}
-
-function addShopItem(store) {
-  const input = document.getElementById('add-' + store);
-  const val   = input.value.trim();
-  if (!val) return;
-  const stores = getStores();
-  stores[store].push(val);
-  localStorage.setItem('home_stores', JSON.stringify(stores));
-  input.value = '';
-  renderShopping();
-}
-
-// ═══════════════════════════════════════
-// VOICE — Speech Recognition
-// ═══════════════════════════════════════
-// Current engine: Web Speech API (browser native, free)
+// ── VOICE OUTPUT (Speech Synthesis) ───────────────
+// Current engine: Web Speech Synthesis API (browser native)
 // Upgrade path: swap VOICE_CONFIG.engine to 'anthropic'
-//               when Anthropic Voice API launches
-// ─────────────────────────────────────────
+//               when Anthropic Voice API launches —
+//               replace speakText() with Anthropic TTS stream
+// ────────────────────────────────────────────────
 const VOICE_CONFIG = {
-  engine:   'browser',   // 'browser' | 'anthropic' (coming soon)
-  lang:     'en-US',
-  autoSend: true         // auto-submit when speech ends
+  engine:  'browser',  // 'browser' | 'anthropic' (coming soon)
+  rate:    0.92,       // slightly slower = warmer feel
+  pitch:   1.0,
+  volume:  1.0,
+  enabled: true        // set false to mute TV voice output
 };
 
-let recognition  = null;
-let isListening  = false;
+let voicePrimed = false;
+let selectedVoice = null;
 
-function initSpeechRecognition() {
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) {
-    document.getElementById('micBtn').style.display = 'none';
-    return;
+function primeVoice() {
+  if (voicePrimed || !window.speechSynthesis) return;
+  // Silent utterance — unlocks audio context after page load
+  const u = new SpeechSynthesisUtterance('');
+  u.volume = 0;
+  window.speechSynthesis.speak(u);
+  voicePrimed = true;
+}
+
+function loadVoice() {
+  if (!window.speechSynthesis) return;
+  const voices = speechSynthesis.getVoices();
+  // Prefer warm natural-sounding English voices
+  const preferred = [
+    'Samantha', 'Karen', 'Moira', 'Tessa', // macOS / iOS
+    'Google US English', 'Microsoft Aria',
+    'en-US', 'en-GB'
+  ];
+  for (const pref of preferred) {
+    const v = voices.find(v => v.name.includes(pref) || v.lang === pref);
+    if (v) { selectedVoice = v; break; }
   }
-
-  recognition = new SR();
-  recognition.lang       = VOICE_CONFIG.lang;
-  recognition.continuous = false;
-  recognition.interimResults = true;
-
-  recognition.onstart = () => {
-    isListening = true;
-    document.getElementById('micBtn').classList.add('listening');
-    document.getElementById('listenOverlay').classList.add('active');
-    document.getElementById('listenTranscript').textContent = '';
-  };
-
-  recognition.onresult = (e) => {
-    const interim = Array.from(e.results)
-      .map(r => r[0].transcript).join('');
-    document.getElementById('listenTranscript').textContent = interim;
-
-    // Final result — populate input
-    const final = Array.from(e.results)
-      .filter(r => r.isFinal)
-      .map(r => r[0].transcript).join('');
-    if (final) document.getElementById('chatInput').value = final;
-  };
-
-  recognition.onend = () => {
-    stopListening();
-    if (VOICE_CONFIG.autoSend && document.getElementById('chatInput').value.trim()) {
-      setTimeout(sendMessage, 300);
-    }
-  };
-
-  recognition.onerror = (e) => {
-    console.warn('Speech error:', e.error);
-    stopListening();
-  };
+  if (!selectedVoice) selectedVoice = voices.find(v => v.lang.startsWith('en')) || voices[0];
 }
 
-function toggleListening() {
-  if (isListening) { cancelListening(); return; }
-  if (!recognition) { initSpeechRecognition(); }
-  if (!recognition) return;
-  try { recognition.start(); } catch(e) { console.warn(e); }
+function speakText(text) {
+  if (!VOICE_CONFIG.enabled || !window.speechSynthesis) return;
+  speechSynthesis.cancel();
+
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate   = VOICE_CONFIG.rate;
+  u.pitch  = VOICE_CONFIG.pitch;
+  u.volume = VOICE_CONFIG.volume;
+  if (selectedVoice) u.voice = selectedVoice;
+
+  const indicator = document.getElementById('speakingIndicator');
+
+  u.onstart = () => indicator && indicator.classList.add('active');
+  u.onend   = () => indicator && indicator.classList.remove('active');
+  u.onerror = () => indicator && indicator.classList.remove('active');
+
+  speechSynthesis.speak(u);
 }
 
-function stopListening() {
-  isListening = false;
-  document.getElementById('micBtn').classList.remove('listening');
-  document.getElementById('listenOverlay').classList.remove('active');
+// Load voices (async on some browsers)
+if (window.speechSynthesis) {
+  loadVoice();
+  speechSynthesis.onvoiceschanged = loadVoice;
 }
 
-function cancelListening() {
-  if (recognition) try { recognition.abort(); } catch(e) {}
-  stopListening();
-  document.getElementById('listenTranscript').textContent = '';
+// Prime on first user interaction
+document.addEventListener('click', primeVoice, { once: true });
+document.addEventListener('touchstart', primeVoice, { once: true });
+// Auto-prime after short delay as fallback
+setTimeout(primeVoice, 1500);
+
+// ── DISCOVERY ────────────────────────
+let lastDiscoveryTs = null;
+let discoveryTimer  = null;
+
+function pollDiscovery() {
+  const ts = localStorage.getItem('home_discovery_ts');
+  if (ts && ts !== lastDiscoveryTs) {
+    lastDiscoveryTs = ts;
+    const q = localStorage.getItem('home_discovery_q');
+    const a = localStorage.getItem('home_discovery_a');
+    if (q && a) showDiscovery(q, a);
+  }
 }
 
-// ═══════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════
+function showDiscovery(q, a) {
+  document.getElementById('discoveryQ').textContent = q;
+  document.getElementById('discoveryA').textContent = a;
+  document.getElementById('discoveryBar').classList.add('visible');
+
+  // Speak the answer aloud through the TV
+  speakText(a);
+
+  clearTimeout(discoveryTimer);
+  discoveryTimer = setTimeout(() => {
+    document.getElementById('discoveryBar').classList.remove('visible');
+    speechSynthesis && speechSynthesis.cancel();
+  }, 28000);
+}
+
+// ── QR CODE ──────────────────────────
+function renderQR() {
+  try {
+    new QRCode(document.getElementById('qrCanvas'), {
+      text: HOME.phoneURL,
+      width: 72, height: 72,
+      colorDark: '#EDE6D3',
+      colorLight: 'transparent',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  } catch(e) {
+    // QR lib not loaded yet — canvas shows placeholder
+  }
+}
+
+// ── INIT ─────────────────────────────
 function init() {
-  updateGreeting();
-  renderPrompts();
+  renderWeather();
+  renderCalendar();
   renderTasks();
-  renderMoods();
-  renderShopping();
-  initSpeechRecognition();
+  updateMood();
+  updateClock();
+  renderQR();
 
-  // Seed first assistant message
-  addMsg('Good evening. What are you curious about tonight?', 'assistant');
-
-  setInterval(updateGreeting, 60000);
+  setInterval(updateClock,    1000);
+  setInterval(updateMood,     4000);
+  setInterval(pollDiscovery,  2500);
+  setInterval(renderTasks,    8000);
 }
 
 init();
