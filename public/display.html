@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:          #0F0D0B;
+  --panel:       #1A1714;
+  --card:        #221F1B;
+  --card-hover:  #2A2620;
+  --cream:       #EDE6D3;
+  --cream-dim:   rgba(237,230,211,0.5);
+  --cream-faint: rgba(237,230,211,0.18);
+  --gold:        #C4A247;
+  --gold-dim:    rgba(196,162,71,0.18);
+  --gold-border: rgba(196,162,71,0.25);
+  --sep:         rgba(196,162,71,0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* ── HEADER ── */
+.header {
+  padding: 18px 20px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg);
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--sep);
+}
+.header-greeting {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--cream);
+}
+.header-time {
+  font-size: 13px;
+  color: var(--cream-dim);
+  letter-spacing: 1px;
+}
+.tv-live {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(196,162,71,0.6);
+}
+.tv-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: livePulse 2.5s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.2; }
+}
+
+/* ── PAGES ── */
+.pages {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+.page {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 24px 20px 100px;
+  display: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.page.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── TAB BAR ── */
+.tab-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--panel);
+  border-top: 1px solid var(--sep);
+  display: flex;
+  padding: 8px 0;
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
+  z-index: 200;
+  flex-shrink: 0;
+}
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 4px;
+  cursor: pointer;
+  opacity: 0.35;
+  transition: opacity 0.2s;
+}
+.tab.active { opacity: 1; }
+.tab-icon { font-size: 18px; line-height: 1; }
+.tab-label {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+}
+.tab.active .tab-label { color: var(--gold); }
+
+/* ── SHARED COMPONENTS ── */
+.page-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+.page-sub {
+  font-size: 11px;
+  color: var(--cream-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.section-label {
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(196,162,71,0.5);
+  margin-bottom: 12px;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--sep);
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--sep);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 10px;
+}
+
+/* ── DISCOVER PAGE ── */
+.discover-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  color: rgba(196,162,71,0.85);
+  letter-spacing: 0.5px;
+}
+
+.messages-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+  min-height: 200px;
+}
+.msg {
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 15px;
+  line-height: 1.55;
+  max-width: 92%;
+  animation: msgIn 0.3s ease;
+}
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.msg.user {
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-border);
+  color: var(--cream);
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+}
+.msg.assistant {
+  background: var(--card);
+  border: 1px solid var(--sep);
+  color: rgba(237,230,211,0.9);
+  margin-right: auto;
+  border-bottom-left-radius: 4px;
+}
+.msg.loading {
+  color: var(--cream-dim);
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+}
+
+.input-area {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  margin-top: 8px;
+}
+.chat-input {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--sep);
+  border-radius: 14px;
+  padding: 12px 16px;
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  outline: none;
+  resize: none;
+  min-height: 48px;
+  max-height: 110px;
+  line-height: 1.4;
+  transition: border-color 0.2s;
+}
+.chat-input::placeholder { color: var(--cream-faint); }
+.chat-input:focus { border-color: var(--gold-border); }
+
+.send-btn {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  background: var(--gold);
+  border: none;
+  color: #0F0D0B;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: opacity 0.2s, transform 0.15s;
+  line-height: 1;
+}
+.send-btn:active { transform: scale(0.93); }
+.send-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* Suggested prompts */
+.prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.prompt-chip {
+  background: var(--card);
+  border: 1px solid var(--sep);
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-size: 13px;
+  color: var(--cream-dim);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.prompt-chip:active {
+  border-color: var(--gold-border);
+  color: var(--cream);
+}
+
+/* ── TASKS PAGE ── */
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(237,230,211,0.04);
+}
+.task-item:last-child { border-bottom: none; }
+
+.task-check {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(237,230,211,0.2);
+  flex-shrink: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.task-check.done {
+  background: var(--gold-dim);
+  border-color: var(--gold);
+}
+.task-check.done::after {
+  content: '✓';
+  font-size: 11px;
+  color: var(--gold);
+  font-weight: 600;
+}
+.task-text {
+  flex: 1;
+  font-size: 14px;
+  color: var(--cream);
+  line-height: 1.4;
+}
+.task-text.done {
+  text-decoration: line-through;
+  color: var(--cream-dim);
+}
+.task-cost {
+  font-size: 11px;
+  color: var(--cream-dim);
+  flex-shrink: 0;
+  letter-spacing: 0.3px;
+}
+
+/* ── MOOD PAGE ── */
+.mood-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.mood-card {
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 3/2;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.25s, transform 0.15s;
+}
+.mood-card.selected { border-color: var(--gold); }
+.mood-card:active { transform: scale(0.97); }
+
+.mood-bg {
+  position: absolute;
+  inset: 0;
+}
+.mood-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.65) 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 12px 14px;
+}
+.mood-card-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  color: #EDE6D3;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.mood-on-tv {
+  position: absolute;
+  top: 9px; right: 9px;
+  background: var(--gold);
+  color: #0F0D0B;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: none;
+}
+.mood-card.selected .mood-on-tv { display: block; }
+
+/* Mood gradient backgrounds */
+.mbg-portugal  { background: radial-gradient(ellipse at 30% 60%, #C4714A, #3D1A08); }
+.mbg-greece    { background: radial-gradient(ellipse at 60% 40%, #4A7CC4, #0A1A3A); }
+.mbg-family    { background: radial-gradient(ellipse at 40% 50%, #C4944A, #3A2810); }
+.mbg-home      { background: radial-gradient(ellipse at 50% 70%, #4A7A4A, #0E180E); }
+.mbg-memories  { background: radial-gradient(ellipse at 35% 45%, #A07A8A, #160E16); }
+
+/* ── SHOPPING PAGE ── */
+.store-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+.store-icon { font-size: 18px; }
+.store-name {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+
+.shop-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(237,230,211,0.04);
+}
+.shop-item:last-child { border-bottom: none; }
+
+.shop-check {
+  width: 20px; height: 20px;
+  border-radius: 5px;
+  border: 1.5px solid rgba(237,230,211,0.2);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shop-check.checked {
+  background: var(--gold-dim);
+  border-color: var(--gold);
+}
+.shop-check.checked::after {
+  content: '✓';
+  font-size: 10px;
+  color: var(--gold);
+  font-weight: 600;
+}
+.shop-text {
+  flex: 1;
+  font-size: 14px;
+  color: var(--cream);
+}
+.shop-text.checked {
+  text-decoration: line-through;
+  color: var(--cream-dim);
+}
+
+.add-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.add-input {
+  flex: 1;
+  background: rgba(237,230,211,0.04);
+  border: 1px solid var(--sep);
+  border-radius: 8px;
+  padding: 9px 13px;
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.add-input::placeholder { color: var(--cream-faint); }
+.add-input:focus { border-color: var(--gold-border); }
+.add-btn {
+  width: 38px; height: 38px;
+  border-radius: 8px;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-border);
+  color: var(--gold);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  line-height: 1;
+}
+.add-btn:active { background: rgba(196,162,71,0.3); }
+
+/* ── VOICE ── */
+.mic-btn {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  background: var(--card);
+  border: 1px solid var(--sep);
+  color: var(--cream-dim);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  position: relative;
+}
+.mic-btn:active { transform: scale(0.93); }
+.mic-btn.listening {
+  background: rgba(196,162,71,0.12);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.mic-btn.listening::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 20px;
+  border: 2px solid var(--gold);
+  opacity: 0.4;
+  animation: micRing 1.2s ease-in-out infinite;
+}
+.mic-btn.listening::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 24px;
+  border: 1px solid var(--gold);
+  opacity: 0.15;
+  animation: micRing 1.2s ease-in-out 0.3s infinite;
+}
+@keyframes micRing {
+  0%   { transform: scale(1);    opacity: 0.4; }
+  100% { transform: scale(1.15); opacity: 0;   }
+}
+
+.listening-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,8,6,0.92);
+  z-index: 500;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+}
+.listening-overlay.active { display: flex; }
+
+.listen-orb {
+  width: 96px; height: 96px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  border: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  position: relative;
+}
+.listen-orb::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(196,162,71,0.3);
+  animation: orbRing 1.4s ease-in-out infinite;
+}
+.listen-orb::after {
+  content: '';
+  position: absolute;
+  inset: -24px;
+  border-radius: 50%;
+  border: 1px solid rgba(196,162,71,0.15);
+  animation: orbRing 1.4s ease-in-out 0.35s infinite;
+}
+@keyframes orbRing {
+  0%   { transform: scale(1);    opacity: 1; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+
+.listen-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 300;
+  color: var(--cream);
+}
+.listen-sub {
+  font-size: 12px;
+  color: var(--cream-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.listen-transcript {
+  font-size: 16px;
+  color: var(--gold);
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  text-align: center;
+  max-width: 80%;
+  min-height: 28px;
+  line-height: 1.4;
+}
+.listen-cancel {
+  font-size: 13px;
+  color: var(--cream-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 10px 20px;
+  border: 1px solid var(--sep);
+  border-radius: 8px;
+  margin-top: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div class="header-greeting" id="headerGreeting">Good evening</div>
+  </div>
+  <div class="tv-live">
+    <div class="tv-dot"></div>
+    TV live
+  </div>
+</div>
+
+<!-- PAGES CONTAINER -->
+<div class="pages">
+
+  <!-- ── DISCOVER ── -->
+  <div class="page active" id="page-discover">
+    <div class="page-title">Discover</div>
+    <div class="page-sub">Ask anything together</div>
+
+    <div class="discover-notice">
+      <span>📺</span>
+      Your answer will appear on the TV
+    </div>
+
+    <div class="prompts" id="suggestedPrompts"></div>
+
+    <div class="messages-area" id="messages"></div>
+
+    <div class="input-area">
+      <textarea class="chat-input" id="chatInput" placeholder="Ask anything, or tap 🎙 to speak…" rows="1"></textarea>
+      <button class="mic-btn" id="micBtn" onclick="toggleListening()" title="Speak">🎙</button>
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()">↑</button>
+    </div>
+  </div>
+
+  <!-- LISTENING OVERLAY -->
+  <div class="listening-overlay" id="listenOverlay">
+    <div class="listen-orb">🎙</div>
+    <div class="listen-label">Listening…</div>
+    <div class="listen-transcript" id="listenTranscript">Speak your question</div>
+    <div class="listen-sub">Answer will appear on the TV</div>
+    <div class="listen-cancel" onclick="cancelListening()">Cancel</div>
+  </div>
+
+  <!-- ── TASKS ── -->
+  <div class="page" id="page-tasks">
+    <div class="page-title">Tasks</div>
+    <div class="page-sub">Three buckets</div>
+
+    <div class="section-label">🛒 Buy It</div>
+    <div class="card" id="bucket-buy"></div>
+
+    <div class="section-label">🔨 Do It</div>
+    <div class="card" id="bucket-do"></div>
+
+    <div class="section-label">📞 Hire It</div>
+    <div class="card" id="bucket-hire"></div>
+  </div>
+
+  <!-- ── MOOD ── -->
+  <div class="page" id="page-mood">
+    <div class="page-title">Set the Mood</div>
+    <div class="page-sub">Changes the TV background</div>
+    <div class="mood-grid" id="moodGrid"></div>
+  </div>
+
+  <!-- ── SHOPPING ── -->
+  <div class="page" id="page-shop">
+    <div class="page-title">Shopping</div>
+    <div class="page-sub">Lists by store</div>
+    <div id="shopContent"></div>
+  </div>
+
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <div class="tab active" onclick="showTab('discover',this)">
+    <div class="tab-icon">✦</div>
+    <div class="tab-label">Discover</div>
+  </div>
+  <div class="tab" onclick="showTab('tasks',this)">
+    <div class="tab-icon">☑</div>
+    <div class="tab-label">Tasks</div>
+  </div>
+  <div class="tab" onclick="showTab('mood',this)">
+    <div class="tab-icon">◐</div>
+    <div class="tab-label">Mood</div>
+  </div>
+  <div class="tab" onclick="showTab('shop',this)">
+    <div class="tab-icon">🛒</div>
+    <div class="tab-label">Shop</div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════
+const API = '/api/chat'; // Vercel serverless proxy — same domain
+
+const SYSTEM_PROMPT = `You are the Garrity family's home assistant. You help the family discover things together on their home TV display.
+
+The family: Bill (building ClubOS, a software platform for private clubs — loves sports, golf, entrepreneurship), Jodi (corporate partnerships manager, very organized and practical, appreciates concise answers), Payton (graduating high school 2026, loves gaming and technology). They live in Durham, NC.
+
+You are warm, conversational, and genuinely curious. Keep answers SHORT — 2 to 4 sentences max for most questions. You're writing for a TV that a family reads together, so be clear, direct, and occasionally delightful. No bullet lists unless truly necessary. Think of yourself as a brilliant friend at the dinner table, not a textbook.`;
+
+const PROMPTS = [
+  "What's the weather this week?",
+  "Recommend a documentary for tonight",
+  "Fun fact about Portugal",
+  "Best restaurants near Durham?",
+  "What happened in sports today?",
+  "Give us a dinner idea"
+];
+
+const TASKS_DEFAULT = {
+  buy: [
+    { text: 'New carpet — get bids first',    cost: '$5–10k', done: false },
+    { text: 'Touch-up paint supplies',         cost: '~$40',  done: false },
+    { text: 'Under-stairs organizer bins',     cost: '',       done: false },
+    { text: 'Exterior pressure washer rental', cost: '',       done: false }
+  ],
+  doIt: [
+    { text: 'Organize under stairs',           cost: '', done: false },
+    { text: 'Deep clean pantry',               cost: '', done: false },
+    { text: 'Fix holes in walls',              cost: '', done: false },
+    { text: 'Touch up baseboards',             cost: '', done: false },
+    { text: 'Declutter guest room',            cost: '', done: false },
+    { text: 'Organize garage shelving',        cost: '', done: false },
+    { text: 'Clean out and organize fridge',   cost: '', done: false },
+    { text: 'Select and frame photos for wall',cost: '', done: false }
+  ],
+  hireOut: [
+    { text: 'Exterior pressure washing',       cost: 'Get bid', done: false },
+    { text: 'Carpet installation',             cost: 'Get bid', done: false },
+    { text: 'Baseboard painting',              cost: 'Get bid', done: false }
+  ]
+};
+
+const MOODS = [
+  { key: 'portugal',  label: 'Portugal 2023',   bg: 'mbg-portugal'  },
+  { key: 'greece',    label: 'Greece 2022',      bg: 'mbg-greece'    },
+  { key: 'family',    label: 'Family Memories',  bg: 'mbg-family'    },
+  { key: 'home',      label: 'Home',             bg: 'mbg-home'      },
+  { key: 'memories',  label: "Mom's Photos",     bg: 'mbg-memories'  }
+];
+
+const STORES_DEFAULT = {
+  'Walmart':       ['Paper towels', 'Trash bags', 'Dish soap', 'Laundry detergent'],
+  'Harris Teeter': ['Almond milk', 'Greek yogurt', 'Chicken breast', 'Baby spinach', 'Eggs'],
+  'Publix':        ['Sourdough bread', 'Parmesan', 'Cherry tomatoes'],
+  "BJ's":          ['Sparkling water (case)', 'Olive oil', 'Protein bars']
+};
+
+const STORE_ICONS = {
+  'Walmart': '🛍', 'Harris Teeter': '🌿', 'Publix': '🧺', "BJ's": '📦'
+};
+
+// ═══════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════
+function showTab(name, el) {
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = 'none';
+  });
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+
+  const page = document.getElementById('page-' + name);
+  page.style.display = 'block';
+  requestAnimationFrame(() => page.classList.add('active'));
+  el.classList.add('active');
+}
+
+// ═══════════════════════════════════════
+// CLOCK
+// ═══════════════════════════════════════
+function updateGreeting() {
+  const h = new Date().getHours();
+  const g = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('headerGreeting').textContent = g;
+}
+
+// ═══════════════════════════════════════
+// DISCOVER
+// ═══════════════════════════════════════
+let history = [];
+let busy    = false;
+
+function renderPrompts() {
+  document.getElementById('suggestedPrompts').innerHTML = PROMPTS.map(p => `
+    <div class="prompt-chip" onclick="usePrompt(this)">${p}</div>
+  `).join('');
+}
+
+function usePrompt(el) {
+  document.getElementById('chatInput').value = el.textContent;
+  sendMessage();
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const q = input.value.trim();
+  if (!q || busy) return;
+
+  input.value = '';
+  input.style.height = 'auto';
+  busy = true;
+  document.getElementById('sendBtn').disabled = true;
+
+  // Hide prompts after first use
+  document.getElementById('suggestedPrompts').style.display = 'none';
+
+  addMsg(q, 'user');
+  history.push({ role: 'user', content: q });
+
+  const loadEl = addMsg('Thinking…', 'assistant loading');
+
+  try {
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system: SYSTEM_PROMPT,
+        messages: history,
+        max_tokens: 350
+      })
+    });
+
+    if (!res.ok) throw new Error(res.status);
+
+    const data = await res.json();
+    const answer = data.content?.[0]?.text
+                || data.choices?.[0]?.message?.content
+                || 'Hmm, I had trouble with that. Try again?';
+
+    loadEl.remove();
+    addMsg(answer, 'assistant');
+    history.push({ role: 'assistant', content: answer });
+
+    // Push to TV via localStorage
+    localStorage.setItem('home_discovery_q',  q);
+    localStorage.setItem('home_discovery_a',  answer);
+    localStorage.setItem('home_discovery_ts', Date.now().toString());
+
+  } catch (err) {
+    loadEl.remove();
+    addMsg('Connection hiccup — give it another try.', 'assistant');
+    console.error(err);
+  }
+
+  busy = false;
+  document.getElementById('sendBtn').disabled = false;
+}
+
+function addMsg(text, type) {
+  const el = document.createElement('div');
+  el.className = 'msg ' + type;
+  el.textContent = text;
+  const area = document.getElementById('messages');
+  area.appendChild(el);
+  el.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  return el;
+}
+
+// Auto-resize textarea
+document.addEventListener('DOMContentLoaded', () => {
+  const ta = document.getElementById('chatInput');
+  ta.addEventListener('input', () => {
+    ta.style.height = 'auto';
+    ta.style.height = Math.min(ta.scrollHeight, 110) + 'px';
+  });
+  ta.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+});
+
+// ═══════════════════════════════════════
+// TASKS
+// ═══════════════════════════════════════
+function getTasks() {
+  return JSON.parse(localStorage.getItem('home_tasks_full') || 'null') || TASKS_DEFAULT;
+}
+
+function saveTasks(tasks) {
+  localStorage.setItem('home_tasks_full', JSON.stringify(tasks));
+  // Update TV counts
+  localStorage.setItem('home_task_counts', JSON.stringify({
+    buy:     tasks.buy.filter(t => !t.done).length,
+    doIt:    tasks.doIt.filter(t => !t.done).length,
+    hireOut: tasks.hireOut.filter(t => !t.done).length
+  }));
+}
+
+function renderTasks() {
+  const tasks = getTasks();
+  [
+    ['buy',    'bucket-buy'],
+    ['doIt',   'bucket-do'],
+    ['hireOut','bucket-hire']
+  ].forEach(([bucket, elId]) => {
+    const el = document.getElementById(elId);
+    el.innerHTML = tasks[bucket].map((t, i) => `
+      <div class="task-item">
+        <div class="task-check ${t.done ? 'done' : ''}"
+             onclick="toggleTask('${bucket}',${i})"></div>
+        <div class="task-text ${t.done ? 'done' : ''}">${t.text}</div>
+        ${t.cost ? `<div class="task-cost">${t.cost}</div>` : ''}
+      </div>
+    `).join('');
+  });
+}
+
+function toggleTask(bucket, idx) {
+  const tasks = getTasks();
+  tasks[bucket][idx].done = !tasks[bucket][idx].done;
+  saveTasks(tasks);
+  renderTasks();
+}
+
+// ═══════════════════════════════════════
+// MOOD
+// ═══════════════════════════════════════
+function renderMoods() {
+  const current = localStorage.getItem('home_mood') || 'portugal';
+  document.getElementById('moodGrid').innerHTML = MOODS.map(m => `
+    <div class="mood-card ${m.key === current ? 'selected' : ''}"
+         onclick="setMood('${m.key}')">
+      <div class="mood-bg ${m.bg}"></div>
+      <div class="mood-overlay">
+        <div class="mood-card-name">${m.label}</div>
+      </div>
+      <div class="mood-on-tv">On TV</div>
+    </div>
+  `).join('');
+}
+
+function setMood(key) {
+  localStorage.setItem('home_mood', key);
+  renderMoods();
+}
+
+// ═══════════════════════════════════════
+// SHOPPING
+// ═══════════════════════════════════════
+function getStores() {
+  return JSON.parse(localStorage.getItem('home_stores') || 'null') || STORES_DEFAULT;
+}
+
+function renderShopping() {
+  const stores = getStores();
+  document.getElementById('shopContent').innerHTML = Object.keys(stores).map(store => `
+    <div class="section-label">
+      <span>${STORE_ICONS[store] || '🛒'}</span>
+      ${store}
+    </div>
+    <div class="card">
+      ${stores[store].map((item, i) => {
+        const cKey    = `shop_${store}_${i}`;
+        const checked = localStorage.getItem(cKey) === '1';
+        return `<div class="shop-item" id="si-${store}-${i}">
+          <div class="shop-check ${checked ? 'checked' : ''}"
+               onclick="toggleShop('${store}',${i})"></div>
+          <div class="shop-text ${checked ? 'checked' : ''}"
+               id="st-${store}-${i}">${item}</div>
+        </div>`;
+      }).join('')}
+      <div class="add-row">
+        <input class="add-input" id="add-${store}" placeholder="Add item…"
+               onkeydown="if(event.key==='Enter')addShopItem('${store}')">
+        <button class="add-btn" onclick="addShopItem('${store}')">+</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleShop(store, idx) {
+  const key = `shop_${store}_${idx}`;
+  const now = localStorage.getItem(key) !== '1';
+  localStorage.setItem(key, now ? '1' : '0');
+  renderShopping();
+}
+
+function addShopItem(store) {
+  const input = document.getElementById('add-' + store);
+  const val   = input.value.trim();
+  if (!val) return;
+  const stores = getStores();
+  stores[store].push(val);
+  localStorage.setItem('home_stores', JSON.stringify(stores));
+  input.value = '';
+  renderShopping();
+}
+
+// ═══════════════════════════════════════
+// VOICE — Speech Recognition
+// ═══════════════════════════════════════
+// Current engine: Web Speech API (browser native, free)
+// Upgrade path: swap VOICE_CONFIG.engine to 'anthropic'
+//               when Anthropic Voice API launches
+// ─────────────────────────────────────────
+const VOICE_CONFIG = {
+  engine:   'browser',   // 'browser' | 'anthropic' (coming soon)
+  lang:     'en-US',
+  autoSend: true         // auto-submit when speech ends
+};
+
+let recognition  = null;
+let isListening  = false;
+
+function initSpeechRecognition() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    document.getElementById('micBtn').style.display = 'none';
+    return;
+  }
+
+  recognition = new SR();
+  recognition.lang       = VOICE_CONFIG.lang;
+  recognition.continuous = false;
+  recognition.interimResults = true;
+
+  recognition.onstart = () => {
+    isListening = true;
+    document.getElementById('micBtn').classList.add('listening');
+    document.getElementById('listenOverlay').classList.add('active');
+    document.getElementById('listenTranscript').textContent = '';
+  };
+
+  recognition.onresult = (e) => {
+    const interim = Array.from(e.results)
+      .map(r => r[0].transcript).join('');
+    document.getElementById('listenTranscript').textContent = interim;
+
+    // Final result — populate input
+    const final = Array.from(e.results)
+      .filter(r => r.isFinal)
+      .map(r => r[0].transcript).join('');
+    if (final) document.getElementById('chatInput').value = final;
+  };
+
+  recognition.onend = () => {
+    stopListening();
+    if (VOICE_CONFIG.autoSend && document.getElementById('chatInput').value.trim()) {
+      setTimeout(sendMessage, 300);
+    }
+  };
+
+  recognition.onerror = (e) => {
+    console.warn('Speech error:', e.error);
+    stopListening();
+  };
+}
+
+function toggleListening() {
+  if (isListening) { cancelListening(); return; }
+  if (!recognition) { initSpeechRecognition(); }
+  if (!recognition) return;
+  try { recognition.start(); } catch(e) { console.warn(e); }
+}
+
+function stopListening() {
+  isListening = false;
+  document.getElementById('micBtn').classList.remove('listening');
+  document.getElementById('listenOverlay').classList.remove('active');
+}
+
+function cancelListening() {
+  if (recognition) try { recognition.abort(); } catch(e) {}
+  stopListening();
+  document.getElementById('listenTranscript').textContent = '';
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+function init() {
+  updateGreeting();
+  renderPrompts();
+  renderTasks();
+  renderMoods();
+  renderShopping();
+  initSpeechRecognition();
+
+  // Seed first assistant message
+  addMsg('Good evening. What are you curious about tonight?', 'assistant');
+
+  setInterval(updateGreeting, 60000);
+}
+
+init();
+</script>
+</body>
+</html>
