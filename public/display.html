@@ -581,11 +581,42 @@ function updateClock() {
 }
 
 // ── WEATHER ─────────────────────────
-function renderWeather() {
-  document.getElementById('wIcon').textContent = HOME.weather.icon;
-  document.getElementById('wTemp').textContent  = HOME.weather.temp;
-  document.getElementById('wCondition').textContent = HOME.weather.condition;
-  document.getElementById('wNote').textContent  = HOME.weather.note;
+async function renderWeather() {
+  try {
+    const res = await fetch(
+      'https://api.open-meteo.com/v1/forecast?latitude=35.994&longitude=-78.8986&current=temperature_2m,weathercode,windspeed_10m&daily=precipitation_probability_max,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York&forecast_days=3'
+    );
+    const d = await res.json();
+    const c = d.current;
+    const daily = d.daily;
+    const codeMap = {
+      0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',
+      51:'🌦',53:'🌦',55:'🌧',61:'🌧',63:'🌧',65:'🌧',
+      71:'🌨',73:'🌨',75:'❄️',80:'🌦',81:'🌦',82:'🌧',
+      95:'⛈',99:'⛈'
+    };
+    const condMap = {
+      0:'Clear',1:'Mostly Clear',2:'Partly Cloudy',3:'Overcast',
+      45:'Foggy',48:'Foggy',51:'Light Drizzle',53:'Drizzle',
+      55:'Heavy Drizzle',61:'Light Rain',63:'Rain',65:'Heavy Rain',
+      71:'Light Snow',73:'Snow',75:'Heavy Snow',80:'Showers',
+      81:'Showers',82:'Heavy Showers',95:'Thunderstorms',99:'Thunderstorms'
+    };
+    const temp    = Math.round(c.temperature_2m);
+    const icon    = codeMap[c.weathercode] || '⛅';
+    const cond    = condMap[c.weathercode] || 'Clear';
+    const wind    = Math.round(c.windspeed_10m);
+    const hi      = Math.round(daily.temperature_2m_max[0]);
+    const lo      = Math.round(daily.temperature_2m_min[0]);
+    const rainTmw = daily.precipitation_probability_max[1];
+    document.getElementById('wIcon').textContent      = icon;
+    document.getElementById('wTemp').textContent      = temp + '°F';
+    document.getElementById('wCondition').textContent = cond + ' · Durham, NC · Wind ' + wind + 'mph';
+    document.getElementById('wNote').textContent      = 'Hi ' + hi + '° · Lo ' + lo + '° · ' +
+      (rainTmw > 40 ? 'Rain likely tomorrow ' + rainTmw + '%' : 'No rain tomorrow');
+    localStorage.setItem('home_weather', JSON.stringify({ temp, icon, cond, wind, hi, lo, rainTmw }));
+  } catch(e) { console.warn('Weather failed', e); }
+  setInterval(renderWeather, 10 * 60 * 1000);
 }
 
 // ── CALENDAR ────────────────────────
